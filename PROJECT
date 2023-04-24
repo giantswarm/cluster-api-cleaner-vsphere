@@ -1,0 +1,3 @@
+domain: giantswarm.io
+repo: github.com/giantswarm/cluster-api-cleaner-vsphere
+version: "3"
