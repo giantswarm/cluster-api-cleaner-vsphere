@@ -14,7 +14,7 @@ rules:
 - apiGroups:
   - infrastructure.cluster.x-k8s.io
   resources:
-  - vcdclusters
+  - vsphereclusters
   verbs:
   - create
   - delete
@@ -26,7 +26,7 @@ rules:
 - apiGroups:
   - infrastructure.cluster.x-k8s.io
   resources:
-  - vcdclusters/status
+  - vsphereclusters/status
   verbs:
   - get
   - patch

@@ -21,11 +21,11 @@ import (
 	"fmt"
 
 	"github.com/go-logr/logr"
-	"github.com/vmware/cloud-provider-for-cloud-director/pkg/vcdsdk"
-	capvcd "github.com/vmware/cluster-api-provider-cloud-director/api/v1beta1"
+	"github.com/vmware/govmomi/cns"
+	cnstypes "github.com/vmware/govmomi/cns/types"
+	capv "sigs.k8s.io/cluster-api-provider-vsphere/apis/v1beta1"
+	"sigs.k8s.io/cluster-api-provider-vsphere/pkg/session"
 	"sigs.k8s.io/controller-runtime/pkg/client"
-
-	"github.com/giantswarm/cluster-api-cleaner-vsphere/pkg/vcd"
 )
 
 type VolumeCleaner struct {
@@ -39,34 +39,28 @@ func NewVolumeCleaner(cli client.Client) *VolumeCleaner {
 // force implementing Cleaner interface
 var _ Cleaner = &VolumeCleaner{}
 
-func (vc *VolumeCleaner) Clean(ctx context.Context, log logr.Logger, vcdClient *vcdsdk.Client, cluster *capvcd.VCDCluster) (bool, error) {
+func (vc *VolumeCleaner) Clean(ctx context.Context, log logr.Logger, sess *session.Session, c *capv.VSphereCluster) (bool, error) {
 	log = log.WithName("VolumeCleaner")
 
-	diskRecords, err := vcd.GetDiskRecordsOfClusterByDescription(vcdClient, cluster.Status.InfraId)
+	cnsClient, err := cns.NewClient(ctx, sess.Client.Client)
 	if err != nil {
-		return false, fmt.Errorf("failed to get disk records of cluster:[%s] [%v]", cluster.Status.InfraId, err)
+		return false, err
 	}
 
-	log.Info(fmt.Sprintf("%d disks will be deleted", len(diskRecords)))
+	filter := cnstypes.CnsQueryFilter{ContainerClusterIds: []string{c.Name}}
 
-	for _, diskRecord := range diskRecords {
-		log.Info(fmt.Sprintf("Disk [%s] will be deleted", diskRecord.Name))
-
-		disk, err := vcd.GetDiskByHref(vcdClient, diskRecord.HREF)
-		if err != nil {
-			return false, fmt.Errorf("failed to get disk:[%s] [%v]", diskRecord.Name, err)
-		}
-
-		err = vcd.DetachFromAllVms(vcdClient, cluster.Name, disk, log)
-		if err != nil {
-			return false, fmt.Errorf("failed to detach VMs from disk:[%s] [%v]", diskRecord.Name, err)
-		}
-
-		err = vcd.DeleteDisk(vcdClient, disk)
-		if err != nil {
-			return false, fmt.Errorf("failed to delete disk:[%s] [%v]", diskRecord.Name, err)
-		}
+	result, err := cnsClient.QueryVolume(ctx, filter)
+	if err != nil {
+		return false, err
 	}
 
+	for _, volume := range result.Volumes {
+		log.Info(fmt.Sprintf("Deleting volume:[%s]", volume.Name))
+		task, err := cnsClient.DeleteVolume(ctx, []cnstypes.CnsVolumeId{{Id: volume.VolumeId.Id}}, true)
+		err = task.Wait(ctx)
+		if err != nil {
+			return false, err
+		}
+	}
 	return false, nil
 }

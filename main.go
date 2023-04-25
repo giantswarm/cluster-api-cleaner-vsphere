@@ -22,7 +22,6 @@ import (
 	"fmt"
 	"os"
 
-	capvcd "github.com/vmware/cluster-api-provider-cloud-director/api/v1beta1"
 	"go.uber.org/zap/zapcore"
 	"k8s.io/apimachinery/pkg/runtime"
 	clientgoscheme "k8s.io/client-go/kubernetes/scheme"
@@ -30,6 +29,8 @@ import (
 	capi "sigs.k8s.io/cluster-api/api/v1beta1"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
+
+	capv "sigs.k8s.io/cluster-api-provider-vsphere/apis/v1beta1"
 
 	"github.com/giantswarm/microerror"
 
@@ -46,7 +47,7 @@ var (
 func init() {
 	_ = clientgoscheme.AddToScheme(scheme)
 
-	_ = capvcd.AddToScheme(scheme)
+	_ = capv.AddToScheme(scheme)
 	_ = capi.AddToScheme(scheme)
 	// +kubebuilder:scaffold:scheme
 }
@@ -99,20 +100,16 @@ func mainE(ctx context.Context) error {
 
 	cleaners := []cleaner.Cleaner{
 		cleaner.NewVolumeCleaner(mgr.GetClient()),
-		cleaner.NewVirtualServiceCleaner(mgr.GetClient()),
-		cleaner.NewLBPoolCleaner(mgr.GetClient()),
-		cleaner.NewDNATCleaner(mgr.GetClient()),
-		cleaner.NewAppPortProfileCleaner(mgr.GetClient()),
 	}
 
-	if err = (&controllers.VCDClusterReconciler{
+	if err = (&controllers.VSphereClusterReconciler{
 		Client: mgr.GetClient(),
-		Log:    ctrl.Log.WithName("controllers").WithName("VCDCluster"),
+		Log:    ctrl.Log.WithName("controllers").WithName("VSphereCluster"),
 
 		ManagementCluster: managementCluster,
 		Cleaners:          cleaners,
 	}).SetupWithManager(mgr); err != nil {
-		setupLog.Error(err, "unable to create controller", "controller", "VCDCluster")
+		setupLog.Error(err, "unable to create controller", "controller", "VSphereCluster")
 		return err
 	}
 
