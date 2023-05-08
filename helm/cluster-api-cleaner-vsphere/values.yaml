@@ -2,7 +2,7 @@ project:
   branch: "[[ .Branch ]]"
   commit: "[[ .SHA ]]"
 image:
-  name: "giantswarm/cluster-api-cleaner-cloud-director"
+  name: "giantswarm/cluster-api-cleaner-vsphere"
   tag: "[[ .Version ]]"
 registry:
   domain: docker.io

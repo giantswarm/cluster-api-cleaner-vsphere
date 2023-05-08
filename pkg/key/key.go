@@ -18,5 +18,5 @@ package key
 
 const (
 	CapiClusterLabelKey  = "cluster.x-k8s.io/cluster-name"
-	CleanerFinalizerName = "cluster-api-cleaner-vsphere.finalizers.giantswarm.io"
+	CleanerFinalizerName = "cluster-api-cleaner-vsphere/finalizers.giantswarm.io"
 )

@@ -10,22 +10,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add cleaner for Application Port Profiles.
-- Add `compatibleProviders` to `Chart.yaml`.
-- Add use of runtime/default seccomp profile.
-- Add cleaner for NamedDisks(Volumes).
-
-## [0.2.0] - 2022-11-24
-
-### Added
-
-- Add cleaner for Load Balancer Pools.
-- Add cleaner for DNAT rules.
-
-
-## [0.1.0] - 2022-11-21
-
-
-[Unreleased]: https://github.com/giantswarm/cluster-api-cleaner-vsphere/compare/v0.2.0...HEAD
-[0.2.0]: https://github.com/giantswarm/cluster-api-cleaner-vsphere/compare/v0.1.0...v0.2.0
-[0.1.0]: https://github.com/giantswarm/cluster-api-cleaner-vsphere/releases/tag/v0.1.0
+- Init repository by mimicking cluster-api-cleaner-cloud-director.
