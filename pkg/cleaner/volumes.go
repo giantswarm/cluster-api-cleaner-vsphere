@@ -57,6 +57,10 @@ func (vc *VolumeCleaner) Clean(ctx context.Context, log logr.Logger, sess *sessi
 	for _, volume := range result.Volumes {
 		log.Info(fmt.Sprintf("Deleting volume:[%s]", volume.Name))
 		task, err := cnsClient.DeleteVolume(ctx, []cnstypes.CnsVolumeId{{Id: volume.VolumeId.Id}}, true)
+		if err != nil {
+			return false, err
+		}
+
 		err = task.Wait(ctx)
 		if err != nil {
 			return false, err
