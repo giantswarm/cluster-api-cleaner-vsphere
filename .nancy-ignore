@@ -11,3 +11,4 @@ CVE-2023-3978
 
 # gRPC HTTP2 header size exceeded error
 CVE-2023-29401
+CVE-2023-32731
