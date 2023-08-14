@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/giantswarm/microerror v0.4.0
-	github.com/go-logr/logr v1.2.3
+	github.com/go-logr/logr v1.2.4
 	github.com/vmware/govmomi v0.30.7
 	go.uber.org/zap v1.24.0
 	k8s.io/api v0.25.0
