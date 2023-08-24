@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Ignore CVE-2023-3978 & CVE-2023-29401.
+- Fix security issues reported by kyverno policies.
 
 ## [0.1.0] - 2023-05-09
 
