@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2023-08-24
+
 ### Changed
 
 - Ignore CVE-2023-3978 & CVE-2023-29401.
@@ -18,5 +20,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Init repository by mimicking cluster-api-cleaner-cloud-director.
 
-[Unreleased]: https://github.com/giantswarm/cluster-api-cleaner-vsphere/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-api-cleaner-vsphere/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/giantswarm/cluster-api-cleaner-vsphere/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/giantswarm/cluster-api-cleaner-vsphere/releases/tag/v0.1.0
