@@ -3,11 +3,7 @@
 # Taken from: <https://github.com/giantswarm/opsctl/pull/1072/files#diff-bbe4a7fb12c43622bce7c6840c770e9995be614626a219942ca138403629cb69R1>
 
 # This requires apiserver v0.26.0 but there is no compatible cluster-api version yet
-sonatype-2022-6522 until=2023-06-01
 CVE-2020-8561 until=2024-01-01
-
-# XSS in net pkg due to HTML parsing error
-CVE-2023-3978
 
 # gRPC HTTP2 header size exceeded error
 CVE-2023-29401
