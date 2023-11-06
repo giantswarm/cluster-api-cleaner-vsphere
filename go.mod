@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/giantswarm/microerror v0.4.0
 	github.com/go-logr/logr v1.2.4
-	github.com/vmware/govmomi v0.32.0
+	github.com/vmware/govmomi v0.33.1
 	go.uber.org/zap v1.26.0
 	k8s.io/api v0.25.0
 	k8s.io/apimachinery v0.25.0
@@ -33,7 +33,7 @@ require (
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/google/gnostic v0.6.9 // indirect
-	github.com/google/go-cmp v0.5.9 // indirect
+	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/google/uuid v1.3.1 // indirect
 	github.com/imdario/mergo v0.3.13 // indirect
