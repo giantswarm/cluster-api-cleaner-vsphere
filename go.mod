@@ -3,7 +3,7 @@ module github.com/giantswarm/cluster-api-cleaner-vsphere
 go 1.19
 
 require (
-	github.com/giantswarm/microerror v0.4.0
+	github.com/giantswarm/microerror v0.4.1
 	github.com/go-logr/logr v1.3.0
 	github.com/vmware/govmomi v0.33.1
 	go.uber.org/zap v1.26.0
