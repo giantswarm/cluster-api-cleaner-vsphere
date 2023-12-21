@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/giantswarm/microerror v0.4.0
 	github.com/go-logr/logr v1.3.0
-	github.com/vmware/govmomi v0.34.0
+	github.com/vmware/govmomi v0.34.1
 	go.uber.org/zap v1.26.0
 	k8s.io/api v0.25.0
 	k8s.io/apimachinery v0.25.0
@@ -74,4 +74,4 @@ require (
 	sigs.k8s.io/yaml v1.3.0 // indirect
 )
 
-replace golang.org/x/net => golang.org/x/net v0.17.0
+replace golang.org/x/net => golang.org/x/net v0.19.0
