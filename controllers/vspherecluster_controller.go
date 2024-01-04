@@ -154,7 +154,7 @@ func (r *VSphereClusterReconciler) reconcileDelete(ctx context.Context, log logr
 
 	if requeueForDeletion {
 		log.V(1).Info("There is an ongoing clean-up process. Adding cluster into queue again")
-		return ctrl.Result{Requeue: true, RequeueAfter: time.Second * 10}, nil
+		return ctrl.Result{Requeue: true, RequeueAfter: time.Second * 30}, nil
 	}
 
 	log.Info("Clean-up is done. Removing finalizers")

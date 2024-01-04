@@ -18,6 +18,7 @@ package cleaner
 
 import (
 	"context"
+	"errors"
 	"fmt"
 
 	"github.com/go-logr/logr"
@@ -42,6 +43,11 @@ var _ Cleaner = &VolumeCleaner{}
 func (vc *VolumeCleaner) Clean(ctx context.Context, log logr.Logger, sess *session.Session, c *capv.VSphereCluster) (bool, error) {
 	log = log.WithName("VolumeCleaner")
 
+	err := sess.Client.Client.UseServiceVersion("vsan")
+	if err != nil {
+		return false, err
+	}
+
 	cnsClient, err := cns.NewClient(ctx, sess.Client.Client)
 	if err != nil {
 		return false, err
@@ -61,9 +67,19 @@ func (vc *VolumeCleaner) Clean(ctx context.Context, log logr.Logger, sess *sessi
 			return false, err
 		}
 
-		err = task.Wait(ctx)
+		info, err := task.WaitForResult(ctx, nil)
 		if err != nil {
 			return false, err
+		}
+
+		if res, ok := info.Result.(cnstypes.CnsVolumeOperationBatchResult); ok {
+			for _, r := range res.VolumeResults {
+				fault := r.GetCnsVolumeOperationResult().Fault
+
+				if fault != nil {
+					return false, errors.New("error while deleting volume: " + fault.LocalizedMessage)
+				}
+			}
 		}
 	}
 	return false, nil
