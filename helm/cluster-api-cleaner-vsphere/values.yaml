@@ -9,6 +9,10 @@ registry:
 
 logLevel: 0
 
+global:
+  podSecurityStandards:
+    enforced: true
+
 pod:
   user:
     id: 1000
