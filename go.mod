@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/giantswarm/microerror v0.4.0
 	github.com/go-logr/logr v1.4.1
-	github.com/vmware/govmomi v0.34.2
+	github.com/vmware/govmomi v0.36.1
 	go.uber.org/zap v1.27.0
 	k8s.io/api v0.25.0
 	k8s.io/apimachinery v0.25.0
@@ -77,5 +77,5 @@ require (
 replace (
 	// CVE-2024-24786
 	github.com/golang/protobuf => github.com/golang/protobuf v1.5.4
-	golang.org/x/net => golang.org/x/net v0.19.0
+	golang.org/x/net => golang.org/x/net v0.22.0
 )
