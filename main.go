@@ -29,6 +29,7 @@ import (
 	capi "sigs.k8s.io/cluster-api/api/v1beta1"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
+	metricsserver "sigs.k8s.io/controller-runtime/pkg/metrics/server"
 
 	capv "sigs.k8s.io/cluster-api-provider-vsphere/apis/v1beta1"
 
@@ -87,11 +88,12 @@ func mainE(ctx context.Context) error {
 	}
 
 	mgr, err := ctrl.NewManager(config, ctrl.Options{
-		Scheme:             scheme,
-		MetricsBindAddress: metricsAddr,
-		Port:               9443,
-		LeaderElection:     enableLeaderElection,
-		LeaderElectionID:   "cluster-api-cleaner-vsphere.giantswarm.io",
+		Scheme: scheme,
+		Metrics: metricsserver.Options{
+			BindAddress: metricsAddr,
+		},
+		LeaderElection:   enableLeaderElection,
+		LeaderElectionID: "cluster-api-cleaner-vsphere.giantswarm.io",
 	})
 	if err != nil {
 		setupLog.Error(err, "unable to start manager")
