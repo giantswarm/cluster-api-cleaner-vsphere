@@ -12,6 +12,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Update renovate to json5 config.
+- Upgrade `k8s.io/api`, `k8s.io/client-go` and `k8s.io/apimachinery` from `0.25.0` to `0.29.3`
+- Upgrade `sigs.k8s.io/cluster-api` from `1.3.3` to `1.6.5`
+- Upgrade `sigs.k8s.io/cluster-api-provider-vsphere` from `1.6.0` to `1.9.3`
+- Upgrade `sigs.k8s.io/controller-runtime` from `0.13.1` to `0.17.3`
+- Upgrade `github.com/vmware/govmomi` from `0.34.2` to `0.36.1`
 
 ## [0.2.0] - 2024-03-04
 
