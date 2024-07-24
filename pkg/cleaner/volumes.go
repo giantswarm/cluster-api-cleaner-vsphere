@@ -67,7 +67,7 @@ func (vc *VolumeCleaner) Clean(ctx context.Context, log logr.Logger, sess *sessi
 			return false, err
 		}
 
-		info, err := task.WaitForResult(ctx, nil)
+		info, err := task.WaitForResultEx(ctx, nil)
 		if err != nil {
 			return false, err
 		}
