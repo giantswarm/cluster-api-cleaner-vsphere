@@ -100,6 +100,7 @@ func (r *VSphereClusterReconciler) SetupWithManager(mgr ctrl.Manager) error {
 }
 
 func (r *VSphereClusterReconciler) reconcileNormal(ctx context.Context, log logr.Logger, vsphereCluster *capv.VSphereCluster) (reconcile.Result, error) {
+	log.V(1).Info("Reconciling for normal state")
 	// If the vsphereCluster doesn't have the finalizer, add it.
 	err := r.addFinalizer(ctx, log, vsphereCluster)
 	if err != nil {
@@ -124,8 +125,10 @@ func (r *VSphereClusterReconciler) reconcileNormal(ctx context.Context, log logr
 }
 
 func (r *VSphereClusterReconciler) reconcileDelete(ctx context.Context, log logr.Logger, vsphereCluster *capv.VSphereCluster) (reconcile.Result, error) {
+	log.V(1).Info("Reconciling for deletion")
 	if !controllerutil.ContainsFinalizer(vsphereCluster, key.CleanerFinalizerName) {
-		// no-op in case the finalizer is not there (it could have been deleted manually)
+		// the cleanup is already done
+		log.V(1).Info("There is no finalizer on VsphereCluster CR. Deletion should have already been done")
 		return ctrl.Result{}, nil
 	}
 
@@ -139,6 +142,7 @@ func (r *VSphereClusterReconciler) reconcileDelete(ctx context.Context, log logr
 
 	sess, err := r.getVCenterSession(ctx, vsphereCluster)
 	if err != nil {
+		log.V(1).Error(err, "Error while getting vcenter session")
 		return reconcile.Result{}, microerror.Mask(err)
 	}
 
@@ -186,7 +190,10 @@ func (r *VSphereClusterReconciler) getVCenterSession(ctx context.Context, cluste
 		return nil, err
 	}
 
-	params = params.WithUserInfo(creds.Username, creds.Password)
+	params = params.
+		WithUserInfo(creds.Username, creds.Password).
+		WithFeatures(session.Feature{EnableKeepAlive: false})
+
 	return session.GetOrCreate(ctx, params)
 }
 
