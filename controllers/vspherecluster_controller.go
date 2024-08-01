@@ -190,7 +190,10 @@ func (r *VSphereClusterReconciler) getVCenterSession(ctx context.Context, cluste
 		return nil, err
 	}
 
-	params = params.WithUserInfo(creds.Username, creds.Password)
+	params = params.
+		WithUserInfo(creds.Username, creds.Password).
+		WithFeatures(session.Feature{EnableKeepAlive: false})
+
 	return session.GetOrCreate(ctx, params)
 }
 

@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Add more logs to improve debugging.
+- Set `EnableKeepAlive=false` to avoid deadlock.
 
 ## [0.3.0] - 2024-07-24
 
