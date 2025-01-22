@@ -1,14 +1,17 @@
+apiVersion: v2
 name: cluster-api-cleaner-vsphere
-version: [[ .Version ]]
 description: "Operator for cleaning leftover Vsphere resources of workload clusters"
-appVersion: "[[ .AppVersion ]]"
+version: 0.0.1-dev
+appVersion: 0.0.1-dev
 home: "https://github.com/giantswarm/cluster-api-cleaner-vsphere"
-apiVersion: v1
 annotations:
   application.giantswarm.io/team: "rocket"
   config.giantswarm.io/version: 1.x.x
   ui.giantswarm.io/logo: https://s.giantswarm.io/app-icons/vmware-vsphere/1/logo_light.png
 restrictions:
+  clusterSingleton: true
+  fixedNamespace: kube-system
+  gpuInstances: false
   compatibleProviders:
     - vsphere
 icon: https://s.giantswarm.io/app-icons/vmware-vsphere/1/logo_light.png
