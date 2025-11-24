@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Attempt to ensure credentials secret isn't deleted until the cleaner has finished consuming it.
+
 ## [0.3.1] - 2024-08-01
 
 ### Changed

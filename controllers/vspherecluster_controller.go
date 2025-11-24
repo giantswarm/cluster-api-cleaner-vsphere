@@ -49,7 +49,7 @@ type VSphereClusterReconciler struct {
 	Cleaners          []cleaner.Cleaner
 }
 
-// +kubebuilder:rbac:groups=,resources=secrets,verbs=get;list;watch
+// +kubebuilder:rbac:groups=,resources=secrets,verbs=get;list;watch;update;patch
 // +kubebuilder:rbac:groups=infrastructure.cluster.x-k8s.io,resources=vsphereclusters,verbs=get;list;watch;create;update;patch;delete
 // +kubebuilder:rbac:groups=infrastructure.cluster.x-k8s.io,resources=vsphereclusters/status,verbs=get;update;patch
 
@@ -140,42 +140,71 @@ func (r *VSphereClusterReconciler) reconcileDelete(ctx context.Context, log logr
 		return ctrl.Result{}, nil
 	}
 
-	sess, err := r.getVCenterSession(ctx, vsphereCluster)
-	if err != nil {
-		log.V(1).Error(err, "Error while getting vcenter session")
-		return reconcile.Result{}, microerror.Mask(err)
+	// Try to add finalizer to identity secret if it exists and doesn't have one yet
+	// This handles the case where the VSphereCluster is deleted before reconcileNormal runs
+	secretExists := true
+	if identity.IsSecretIdentity(vsphereCluster) {
+		secret, err := r.getIdentitySecret(ctx, vsphereCluster)
+		if err != nil {
+			if apierrors.IsNotFound(err) {
+				log.Info("Identity secret not found, it may have already been deleted. Skipping cleanup and removing finalizer.")
+				secretExists = false
+			} else {
+				return reconcile.Result{}, microerror.Mask(err)
+			}
+		} else {
+			// Secret exists, ensure it has our finalizer so it won't be deleted during cleanup
+			err = r.addFinalizer(ctx, log, secret)
+			if err != nil {
+				return reconcile.Result{}, microerror.Mask(err)
+			}
+		}
 	}
 
-	log.V(1).Info("Cleaning Vsphere resources belonging to cluster", "cluster", clusterName)
-	requeueForDeletion := false
-	for _, c := range r.Cleaners {
-		requeue, err := c.Clean(ctx, log, sess, vsphereCluster)
+	// Only attempt cleanup if we can get credentials
+	if secretExists {
+		sess, err := r.getVCenterSession(ctx, vsphereCluster)
 		if err != nil {
+			log.V(1).Error(err, "Error while getting vcenter session")
 			return reconcile.Result{}, microerror.Mask(err)
 		}
-		requeueForDeletion = requeueForDeletion || requeue
-	}
 
-	if requeueForDeletion {
-		log.V(1).Info("There is an ongoing clean-up process. Adding cluster into queue again")
-		return ctrl.Result{Requeue: true, RequeueAfter: time.Second * 30}, nil
+		log.V(1).Info("Cleaning Vsphere resources belonging to cluster", "cluster", clusterName)
+		requeueForDeletion := false
+		for _, c := range r.Cleaners {
+			requeue, err := c.Clean(ctx, log, sess, vsphereCluster)
+			if err != nil {
+				return reconcile.Result{}, microerror.Mask(err)
+			}
+			requeueForDeletion = requeueForDeletion || requeue
+		}
+
+		if requeueForDeletion {
+			log.V(1).Info("There is an ongoing clean-up process. Adding cluster into queue again")
+			return ctrl.Result{Requeue: true, RequeueAfter: time.Second * 30}, nil
+		}
 	}
 
 	log.Info("Clean-up is done. Removing finalizers")
 
-	if identity.IsSecretIdentity(vsphereCluster) {
+	// Remove finalizer from secret if it exists
+	if secretExists && identity.IsSecretIdentity(vsphereCluster) {
 		secret, err := r.getIdentitySecret(ctx, vsphereCluster)
 		if err != nil {
-			return reconcile.Result{}, microerror.Mask(err)
-		}
-
-		err = r.removeFinalizer(ctx, log, secret)
-		if err != nil {
-			return reconcile.Result{}, microerror.Mask(err)
+			if !apierrors.IsNotFound(err) {
+				return reconcile.Result{}, microerror.Mask(err)
+			}
+			// Secret was deleted between checks, that's ok
+			log.V(1).Info("Identity secret was deleted during cleanup")
+		} else {
+			err = r.removeFinalizer(ctx, log, secret)
+			if err != nil {
+				return reconcile.Result{}, microerror.Mask(err)
+			}
 		}
 	}
 
-	err = r.removeFinalizer(ctx, log, vsphereCluster)
+	err := r.removeFinalizer(ctx, log, vsphereCluster)
 
 	return ctrl.Result{}, err
 }
