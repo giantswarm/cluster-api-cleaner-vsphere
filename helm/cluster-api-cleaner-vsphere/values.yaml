@@ -1,9 +1,6 @@
-project:
-  branch: "[[ .Branch ]]"
-  commit: "[[ .SHA ]]"
 image:
   name: "giantswarm/cluster-api-cleaner-vsphere"
-  tag: "[[ .Version ]]"
+  tag: ""
 registry:
   domain: gsoci.azurecr.io
 
@@ -28,6 +25,7 @@ podSecurityContext:
 # Add seccomp to container security context
 securityContext:
   allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
   capabilities:
     drop:
       - ALL
