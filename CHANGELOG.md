@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Migrate to App Build Suite (ABS).
+- Calculate image tag from appVersion field.
+- Switch labels to opencontainers format.
 
 ## [0.4.0] - 2025-11-27
 
