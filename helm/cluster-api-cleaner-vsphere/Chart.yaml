@@ -8,7 +8,7 @@ icon: https://s.giantswarm.io/app-icons/vsphere/1/icon-dark.png
 annotations:
   io.giantswarm.application.team: "rocket"
   config.giantswarm.io/version: 1.x.x
-  ui.giantswarm.io/logo: https://s.giantswarm.io/app-icons/vmware-vsphere/1/logo_light.png
+  ui.giantswarm.io/logo: https://s.giantswarm.io/app-icons/vmware-vsphere/2/logo_light.png
 restrictions:
   compatibleProviders:
     - vsphere
