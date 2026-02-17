@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Switch labels to opencontainers format.
 - Update Architect orb to 6.12.0.
 
+### Fixed
+
+- Correct icon URL in Chart.yaml.
+
 ## [0.4.0] - 2025-11-27
 
 ### Changed
