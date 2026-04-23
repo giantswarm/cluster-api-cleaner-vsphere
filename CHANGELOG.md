@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.1] - 2026-04-23
+
 ### Changed
 
 - Bump `kube-rbac-proxy` sidecar from `v0.5.0` to `v0.19.1` to fix CVE-2023-44487 (HTTP/2 Rapid Reset).
@@ -74,7 +76,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Init repository by mimicking cluster-api-cleaner-cloud-director.
 
-[Unreleased]: https://github.com/giantswarm/cluster-api-cleaner-vsphere/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-api-cleaner-vsphere/compare/v0.5.1...HEAD
+[0.5.1]: https://github.com/giantswarm/cluster-api-cleaner-vsphere/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/giantswarm/cluster-api-cleaner-vsphere/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/giantswarm/cluster-api-cleaner-vsphere/compare/v0.3.1...v0.4.0
 [0.3.1]: https://github.com/giantswarm/cluster-api-cleaner-vsphere/compare/v0.3.0...v0.3.1
