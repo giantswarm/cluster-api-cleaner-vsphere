@@ -1,8 +1,6 @@
 module github.com/giantswarm/cluster-api-cleaner-vsphere
 
-go 1.21
-
-toolchain go1.21.5
+go 1.25.0
 
 require (
 	github.com/giantswarm/microerror v0.4.0
@@ -75,3 +73,5 @@ require (
 	sigs.k8s.io/structured-merge-diff/v4 v4.4.1 // indirect
 	sigs.k8s.io/yaml v1.4.0 // indirect
 )
+
+replace golang.org/x/sys v0.18.0 => golang.org/x/sys v0.45.0
