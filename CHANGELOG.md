@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Update golang base docker image to v1.26.
+
+### Fixed
+
+- Fix Renovate config syntax.
+
 ## [0.5.1] - 2026-04-23
 
 ### Changed
