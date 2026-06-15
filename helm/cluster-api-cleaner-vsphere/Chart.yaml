@@ -4,7 +4,7 @@ version: 0.5.1
 appVersion: 0.5.1
 description: "Operator for cleaning leftover Vsphere resources of workload clusters"
 home: "https://github.com/giantswarm/cluster-api-cleaner-vsphere"
-icon: https://s.giantswarm.io/app-icons/vsphere/2/icon-dark.png
+icon: https://s.giantswarm.io/app-icons/vsphere/2/icon-light.png
 annotations:
   io.giantswarm.application.team: "rocket"
   config.giantswarm.io/version: 1.x.x

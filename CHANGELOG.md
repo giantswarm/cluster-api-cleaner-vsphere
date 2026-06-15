@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Update golang base docker image to v1.26.
+- Update vSphere app icon to the light variant (`https://s.giantswarm.io/app-icons/vsphere/2/icon-light.png`).
 
 ### Fixed
 
