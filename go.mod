@@ -3,7 +3,7 @@ module github.com/giantswarm/cluster-api-cleaner-vsphere
 go 1.25.0
 
 require (
-	github.com/giantswarm/microerror v0.4.0
+	github.com/giantswarm/microerror v0.4.1
 	github.com/go-logr/logr v1.4.2
 	github.com/vmware/govmomi v0.36.1
 	go.uber.org/zap v1.27.0
