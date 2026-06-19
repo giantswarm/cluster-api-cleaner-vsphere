@@ -55,7 +55,7 @@ func (vc *VolumeCleaner) Clean(ctx context.Context, log logr.Logger, sess *sessi
 
 	filter := cnstypes.CnsQueryFilter{ContainerClusterIds: []string{c.Name}}
 
-	result, err := cnsClient.QueryVolume(ctx, filter)
+	result, err := cnsClient.QueryVolume(ctx, &filter)
 	if err != nil {
 		return false, err
 	}
