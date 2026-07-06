@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Remove superfluous build steps from the Dockerfile.
 - Add a Dockerfile for local development and testing.
+- Update module github.com/vmware/govmomi to v0.54.1.
 
 ## [0.5.2] - 2026-06-15
 
