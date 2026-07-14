@@ -5,7 +5,7 @@ go 1.26.0
 require (
 	github.com/giantswarm/microerror v0.4.1
 	github.com/go-logr/logr v1.4.3
-	github.com/vmware/govmomi v0.54.1
+	github.com/vmware/govmomi v0.55.1
 	go.uber.org/zap v1.28.0
 	k8s.io/api v0.36.2
 	k8s.io/apimachinery v0.36.2

@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add a Dockerfile for local development and testing.
 - Update module github.com/vmware/govmomi to v0.54.1.
 - fix(deps): update k8s modules
+- fix(deps): update module github.com/vmware/govmomi to v0.55.1
 
 ## [0.5.2] - 2026-06-15
 
