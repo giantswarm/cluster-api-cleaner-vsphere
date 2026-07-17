@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix(deps): update k8s modules
 - fix(deps): update module github.com/vmware/govmomi to v0.55.1
 - fix(deps): update capi modules
+- fix: migrate to relocated CAPI/CAPV v1beta2 API packages
 
 ## [0.5.2] - 2026-06-15
 
