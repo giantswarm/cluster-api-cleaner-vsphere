@@ -24,7 +24,7 @@ import (
 	"github.com/go-logr/logr"
 	v1 "k8s.io/api/core/v1"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
-	capv "sigs.k8s.io/cluster-api-provider-vsphere/apis/v1beta1"
+	capv "sigs.k8s.io/cluster-api-provider-vsphere/api/govmomi/v1beta2"
 	"sigs.k8s.io/cluster-api-provider-vsphere/pkg/identity"
 	"sigs.k8s.io/cluster-api-provider-vsphere/pkg/session"
 	"sigs.k8s.io/cluster-api/util"
@@ -221,7 +221,7 @@ func (r *VSphereClusterReconciler) getVCenterSession(ctx context.Context, cluste
 
 	params = params.
 		WithUserInfo(creds.Username, creds.Password).
-		WithFeatures(session.Feature{EnableKeepAlive: false})
+		WithFeatures(session.Feature{})
 
 	return session.GetOrCreate(ctx, params)
 }

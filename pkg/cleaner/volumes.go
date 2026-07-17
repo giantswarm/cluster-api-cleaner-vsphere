@@ -24,7 +24,7 @@ import (
 	"github.com/go-logr/logr"
 	"github.com/vmware/govmomi/cns"
 	cnstypes "github.com/vmware/govmomi/cns/types"
-	capv "sigs.k8s.io/cluster-api-provider-vsphere/apis/v1beta1"
+	capv "sigs.k8s.io/cluster-api-provider-vsphere/api/govmomi/v1beta2"
 	"sigs.k8s.io/cluster-api-provider-vsphere/pkg/session"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
