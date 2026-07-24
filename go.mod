@@ -7,9 +7,9 @@ require (
 	github.com/go-logr/logr v1.4.3
 	github.com/vmware/govmomi v0.55.1
 	go.uber.org/zap v1.28.0
-	k8s.io/api v0.36.2
-	k8s.io/apimachinery v0.36.2
-	k8s.io/client-go v0.36.2
+	k8s.io/api v0.36.3
+	k8s.io/apimachinery v0.36.3
+	k8s.io/client-go v0.36.3
 	sigs.k8s.io/cluster-api v1.13.4
 	sigs.k8s.io/cluster-api-provider-vsphere v1.16.1
 	sigs.k8s.io/controller-runtime v0.24.1
