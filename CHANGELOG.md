@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- fix(deps): update module github.com/go-logr/logr to v1.4.4
+
 ## [0.6.0] - 2026-07-17
 
 ### Changed
