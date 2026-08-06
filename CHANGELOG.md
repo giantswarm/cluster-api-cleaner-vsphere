@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add integration tests for the controller and the volume cleaner. Run them with `make integration-test`.
+
 ### Changed
 
 - fix(deps): update module github.com/go-logr/logr to v1.4.4
