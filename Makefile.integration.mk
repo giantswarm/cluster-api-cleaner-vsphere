@@ -23,4 +23,4 @@ setup-envtest: ## Download setup-envtest locally if necessary.
 .PHONY: integration-test
 integration-test: setup-envtest ## Run the integration tests against envtest and a vCenter simulator.
 	KUBEBUILDER_ASSETS="$$($(ENVTEST) use $(ENVTEST_K8S_VERSION) -p path)" \
-		go test -tags integration ./... -count=1
+		go test -v -tags integration ./... -count=1
