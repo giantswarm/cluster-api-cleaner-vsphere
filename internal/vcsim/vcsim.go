@@ -18,8 +18,8 @@ limitations under the License.
 // the CNS endpoint, so tests can seed and query container volumes.
 //
 // This package is not build-tagged. A package whose every file is excluded by a
-// build constraint breaks "go test ./...", which CI runs. Nothing in the shipped
-// binary imports it.
+// build constraint breaks a plain "go test ./...". Nothing in the shipped binary
+// imports it.
 package vcsim
 
 import (

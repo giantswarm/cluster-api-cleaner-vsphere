@@ -1,6 +1,7 @@
 
-# Integration tests. These run locally only: CI runs "go test ./..." without a
-# build tag, which skips them.
+# Integration tests. CI runs them too: the go-build job in .circleci/config.yml
+# sets "test_target: integration-test", so the architect orb calls this target
+# instead of a plain "go test ./...".
 #
 # This file is included automatically by the "include Makefile.*.mk" line in the
 # root Makefile. The glob is alphabetical, so this file is read before
