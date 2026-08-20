@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix(deps): update module github.com/go-logr/logr to v1.4.4
 - fix(deps): update k8s modules to v0.36.3
 - Run integration tests in CI.
+- fix(deps): update k8s.io/utils digest to cf1189d
+- chore(deps): update docker.io/golang docker tag to v1.27
 
 ## [0.6.0] - 2026-07-17
 
