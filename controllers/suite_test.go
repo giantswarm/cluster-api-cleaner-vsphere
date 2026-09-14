@@ -43,7 +43,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
 	"sigs.k8s.io/controller-runtime/pkg/envtest"
 
-	capv "sigs.k8s.io/cluster-api-provider-vsphere/api/govmomi/v1beta2"
+	capv "sigs.k8s.io/cluster-api-provider-vsphere/api/govmomi/v1beta1"
 	"sigs.k8s.io/cluster-api-provider-vsphere/pkg/identity"
 	"sigs.k8s.io/cluster-api-provider-vsphere/pkg/session"
 
@@ -237,7 +237,7 @@ func createVSphereCluster(ctx context.Context, t *testing.T, config vsphereClust
 	}
 
 	if config.identityRef != nil {
-		vsphereCluster.Spec.IdentityRef = *config.identityRef
+		vsphereCluster.Spec.IdentityRef = config.identityRef
 	}
 
 	if config.owner != nil {

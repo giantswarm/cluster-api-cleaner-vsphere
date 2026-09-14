@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Watch and reconcile VSphereCluster as `infrastructure.cluster.x-k8s.io/v1beta1`, which is the version served by the CRD in management clusters.
+
 ### Added
 
 - Add integration tests for the controller and the volume cleaner. Run them with `make integration-test`.

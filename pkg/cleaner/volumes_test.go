@@ -26,7 +26,7 @@ import (
 	"github.com/stretchr/testify/require"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	capv "sigs.k8s.io/cluster-api-provider-vsphere/api/govmomi/v1beta2"
+	capv "sigs.k8s.io/cluster-api-provider-vsphere/api/govmomi/v1beta1"
 	"sigs.k8s.io/cluster-api-provider-vsphere/pkg/session"
 
 	"github.com/giantswarm/cluster-api-cleaner-vsphere/internal/vcsim"
