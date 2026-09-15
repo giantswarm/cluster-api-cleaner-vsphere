@@ -24,7 +24,8 @@ import (
 	"github.com/go-logr/logr"
 	v1 "k8s.io/api/core/v1"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
-	capv "sigs.k8s.io/cluster-api-provider-vsphere/api/govmomi/v1beta2"
+	capv "sigs.k8s.io/cluster-api-provider-vsphere/api/govmomi/v1beta1"
+	capvv1beta2 "sigs.k8s.io/cluster-api-provider-vsphere/api/govmomi/v1beta2"
 	"sigs.k8s.io/cluster-api-provider-vsphere/pkg/identity"
 	"sigs.k8s.io/cluster-api-provider-vsphere/pkg/session"
 	"sigs.k8s.io/cluster-api/util"
@@ -99,6 +100,17 @@ func (r *VSphereClusterReconciler) SetupWithManager(mgr ctrl.Manager) error {
 		Complete(r)
 }
 
+// clusterAsV1Beta2 converts vsphereCluster to the v1beta2 type that pkg/identity
+// requires. The conversion happens in memory only: the client and watches stay
+// on v1beta1, which is the version served by the VSphereCluster CRD.
+func clusterAsV1Beta2(vsphereCluster *capv.VSphereCluster) (*capvv1beta2.VSphereCluster, error) {
+	converted := &capvv1beta2.VSphereCluster{}
+	if err := vsphereCluster.ConvertTo(converted); err != nil {
+		return nil, microerror.Mask(err)
+	}
+	return converted, nil
+}
+
 func (r *VSphereClusterReconciler) reconcileNormal(ctx context.Context, log logr.Logger, vsphereCluster *capv.VSphereCluster) (reconcile.Result, error) {
 	log.V(1).Info("Reconciling for normal state")
 	// If the vsphereCluster doesn't have the finalizer, add it.
@@ -107,8 +119,13 @@ func (r *VSphereClusterReconciler) reconcileNormal(ctx context.Context, log logr
 		return reconcile.Result{}, microerror.Mask(err)
 	}
 
+	v1beta2Cluster, err := clusterAsV1Beta2(vsphereCluster)
+	if err != nil {
+		return reconcile.Result{}, microerror.Mask(err)
+	}
+
 	// If a secret is used as identity reference, we need to protect it until end of deletion too
-	if identity.IsSecretIdentity(vsphereCluster) {
+	if identity.IsSecretIdentity(v1beta2Cluster) {
 		secret, err := r.getIdentitySecret(ctx, vsphereCluster)
 		if err != nil {
 			return reconcile.Result{}, microerror.Mask(err)
@@ -140,10 +157,15 @@ func (r *VSphereClusterReconciler) reconcileDelete(ctx context.Context, log logr
 		return ctrl.Result{}, nil
 	}
 
+	v1beta2Cluster, err := clusterAsV1Beta2(vsphereCluster)
+	if err != nil {
+		return reconcile.Result{}, microerror.Mask(err)
+	}
+
 	// Try to add finalizer to identity secret if it exists and doesn't have one yet
 	// This handles the case where the VSphereCluster is deleted before reconcileNormal runs
 	secretExists := true
-	if identity.IsSecretIdentity(vsphereCluster) {
+	if identity.IsSecretIdentity(v1beta2Cluster) {
 		secret, err := r.getIdentitySecret(ctx, vsphereCluster)
 		if err != nil {
 			if apierrors.IsNotFound(err) {
@@ -188,7 +210,7 @@ func (r *VSphereClusterReconciler) reconcileDelete(ctx context.Context, log logr
 	log.Info("Clean-up is done. Removing finalizers")
 
 	// Remove finalizer from secret if it exists
-	if secretExists && identity.IsSecretIdentity(vsphereCluster) {
+	if secretExists && identity.IsSecretIdentity(v1beta2Cluster) {
 		secret, err := r.getIdentitySecret(ctx, vsphereCluster)
 		if err != nil {
 			if !apierrors.IsNotFound(err) {
@@ -204,7 +226,7 @@ func (r *VSphereClusterReconciler) reconcileDelete(ctx context.Context, log logr
 		}
 	}
 
-	err := r.removeFinalizer(ctx, log, vsphereCluster)
+	err = r.removeFinalizer(ctx, log, vsphereCluster)
 
 	return ctrl.Result{}, err
 }
@@ -214,7 +236,12 @@ func (r *VSphereClusterReconciler) getVCenterSession(ctx context.Context, cluste
 		WithServer(cluster.Spec.Server).
 		WithThumbprint(cluster.Spec.Thumbprint)
 
-	creds, err := identity.GetCredentials(ctx, r.Client, cluster, cluster.Namespace)
+	v1beta2Cluster, err := clusterAsV1Beta2(cluster)
+	if err != nil {
+		return nil, err
+	}
+
+	creds, err := identity.GetCredentials(ctx, r.Client, v1beta2Cluster, cluster.Namespace)
 	if err != nil {
 		return nil, err
 	}

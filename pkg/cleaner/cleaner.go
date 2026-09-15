@@ -20,7 +20,7 @@ import (
 	"context"
 
 	"github.com/go-logr/logr"
-	capv "sigs.k8s.io/cluster-api-provider-vsphere/api/govmomi/v1beta2"
+	capv "sigs.k8s.io/cluster-api-provider-vsphere/api/govmomi/v1beta1"
 	"sigs.k8s.io/cluster-api-provider-vsphere/pkg/session"
 )
 

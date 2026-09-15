@@ -31,7 +31,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	capv "sigs.k8s.io/cluster-api-provider-vsphere/api/govmomi/v1beta2"
+	capv "sigs.k8s.io/cluster-api-provider-vsphere/api/govmomi/v1beta1"
 
 	"github.com/giantswarm/cluster-api-cleaner-vsphere/pkg/cleaner"
 	"github.com/giantswarm/cluster-api-cleaner-vsphere/pkg/key"

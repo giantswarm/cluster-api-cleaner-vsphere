@@ -31,7 +31,8 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 	metricsserver "sigs.k8s.io/controller-runtime/pkg/metrics/server"
 
-	capv "sigs.k8s.io/cluster-api-provider-vsphere/api/govmomi/v1beta2"
+	capv "sigs.k8s.io/cluster-api-provider-vsphere/api/govmomi/v1beta1"
+	capvv1beta2 "sigs.k8s.io/cluster-api-provider-vsphere/api/govmomi/v1beta2"
 
 	"github.com/giantswarm/microerror"
 
@@ -49,6 +50,7 @@ func init() {
 	_ = clientgoscheme.AddToScheme(scheme)
 
 	_ = capv.AddToScheme(scheme)
+	_ = capvv1beta2.AddToScheme(scheme)
 	_ = capi.AddToScheme(scheme)
 	// +kubebuilder:scaffold:scheme
 }
@@ -80,7 +82,7 @@ func mainE(ctx context.Context) error {
 
 	flag.Parse()
 
-	ctrl.SetLogger(zap.New(zap.Level(zapcore.Level(-logLevel))))
+	ctrl.SetLogger(zap.New(zap.Level(zapcore.Level(-logLevel)))) // #nosec G115 -- logLevel is a small CLI flag value (0-5), never close to overflowing int8
 
 	config, err := ctrl.GetConfig()
 	if err != nil {
