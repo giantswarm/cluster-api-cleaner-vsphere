@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Update architect to v10.11.1 (giantswarm/cluster-api-cleaner-vsphere#222)
+
 ## [0.7.0] - 2026-09-15
 
 ### Fixed
