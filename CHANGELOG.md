@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Update architect to v10.11.1 (giantswarm/cluster-api-cleaner-vsphere#222)
 
+### Fixed
+
+- The `helm.sh/chart` label is valid for long chart versions: the 63-character cut trims the whole trailing run of `-`, `.` and `_`.
+
 ## [0.7.0] - 2026-09-15
 
 ### Fixed
