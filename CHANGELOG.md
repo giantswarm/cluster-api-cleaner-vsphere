@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Update architect to v10.11.1 (giantswarm/cluster-api-cleaner-vsphere#222)
 - Update architect to v10.12.2 (giantswarm/cluster-api-cleaner-vsphere#226)
+- fix(deps): update module github.com/vmware/govmomi to v0.56.0
 - Update architect to v10.14.18 (giantswarm/cluster-api-cleaner-vsphere#233)
 
 ### Fixed
