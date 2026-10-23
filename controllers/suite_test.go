@@ -119,7 +119,7 @@ func crdPaths() ([]string, error) {
 		path string
 		crd  string
 	}{
-		{"sigs.k8s.io/cluster-api", "config/crd/bases/cluster.x-k8s.io_clusters.yaml"},
+		{"sigs.k8s.io/cluster-api", "core/config/crd/bases/cluster.x-k8s.io_clusters.yaml"},
 		// Note the extra "default" segment, which CAPI does not have.
 		{"sigs.k8s.io/cluster-api-provider-vsphere", "config/default/crd/bases/infrastructure.cluster.x-k8s.io_vsphereclusters.yaml"},
 	}

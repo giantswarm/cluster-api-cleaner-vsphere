@@ -105,7 +105,7 @@ func (r *VSphereClusterReconciler) SetupWithManager(mgr ctrl.Manager) error {
 // on v1beta1, which is the version served by the VSphereCluster CRD.
 func clusterAsV1Beta2(vsphereCluster *capv.VSphereCluster) (*capvv1beta2.VSphereCluster, error) {
 	converted := &capvv1beta2.VSphereCluster{}
-	if err := vsphereCluster.ConvertTo(converted); err != nil {
+	if err := capv.Convert_v1beta1_VSphereCluster_To_v1beta2_VSphereCluster(vsphereCluster, converted, nil); err != nil {
 		return nil, microerror.Mask(err)
 	}
 	return converted, nil
