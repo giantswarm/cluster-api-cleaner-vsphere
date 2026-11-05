@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The `helm.sh/chart` label is valid for long chart versions: the 63-character cut trims the whole trailing run of `-`, `.` and `_`.
 - fix(deps): update capi modules
 - fix(deps): update module github.com/vmware/govmomi to v0.56.2.
+- fix(deps): update k8s modules
 
 ## [0.7.0] - 2026-09-15
 
