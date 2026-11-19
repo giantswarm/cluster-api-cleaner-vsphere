@@ -16,7 +16,7 @@ require (
 	sigs.k8s.io/cluster-api-provider-vsphere v1.17.0
 	sigs.k8s.io/cluster-api-provider-vsphere/api v1.17.0
 	sigs.k8s.io/cluster-api/api v1.14.4
-	sigs.k8s.io/controller-runtime v0.25.2
+	sigs.k8s.io/controller-runtime v0.25.3
 )
 
 require (
