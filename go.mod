@@ -8,9 +8,9 @@ require (
 	github.com/stretchr/testify v1.12.1
 	github.com/vmware/govmomi v0.56.2
 	go.uber.org/zap v1.28.0
-	k8s.io/api v0.37.2
-	k8s.io/apimachinery v0.37.2
-	k8s.io/client-go v0.37.2
+	k8s.io/api v0.37.3
+	k8s.io/apimachinery v0.37.3
+	k8s.io/client-go v0.37.3
 	k8s.io/utils v0.0.0-20261023123148-ca04ba58ecab
 	sigs.k8s.io/cluster-api v1.14.4
 	sigs.k8s.io/cluster-api-provider-vsphere v1.17.0
